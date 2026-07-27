@@ -15,6 +15,13 @@ const { protect, admin } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
+router.put(
+  "/reports/:id/status",
+  protect,
+  admin,
+  updateReportStatus
+);
+
 router.get("/dashboard", protect, admin, getDashboardStats);
 
 router.get("/users", protect, admin, getUsers);

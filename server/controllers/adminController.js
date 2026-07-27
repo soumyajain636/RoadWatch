@@ -121,6 +121,55 @@ const verifyReport = async (req, res) => {
   }
 };
 
+const updateReportStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    const allowedStatuses = [
+      "Pending",
+      "Verified",
+      "In Progress",
+      "Resolved",
+    ];
+
+    if (!allowedStatuses.includes(status)) {
+      return res.status(400).json({
+        message: "Invalid status",
+      });
+    }
+
+    const report = await Report.findById(req.params.id);
+
+    if (!report) {
+      return res.status(404).json({
+        message: "Report not found",
+      });
+    }
+
+    report.status = status;
+
+    if (status === "Verified") {
+      report.verifiedBy = req.user._id;
+      report.verifiedAt = new Date();
+    }
+
+    if (status === "Resolved") {
+      report.resolvedAt = new Date();
+    }
+
+    await report.save();
+
+    res.json({
+      message: "Status updated successfully",
+      report,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 const resolveReport = async (req, res) => {
   try {
     const report = await Report.findById(req.params.id);
@@ -174,4 +223,5 @@ module.exports = {
   verifyReport,
   resolveReport,
   deleteReport,
+  updateReportStatus,
 };
