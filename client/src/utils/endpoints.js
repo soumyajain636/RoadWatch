@@ -23,6 +23,7 @@ export const ADMIN = {
   VERIFY_REPORT: (id) => `/admin/reports/${id}/verify`,
   RESOLVE_REPORT: (id) => `/admin/reports/${id}/resolve`,
   DELETE_REPORT: (id) => `/admin/reports/${id}`,
+  STATUS: (id) => `/admin/reports/${id}/status`,
 };
 
 export const USERS = {

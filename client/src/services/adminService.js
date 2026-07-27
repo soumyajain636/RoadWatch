@@ -21,4 +21,10 @@ export const adminService = {
 
   deleteReport: (id) =>
     axiosInstance.delete(ADMIN.DELETE_REPORT(id)),
+
+  updateStatus: (id, status) =>
+  axiosInstance.put(
+    ADMIN.STATUS(id),
+    { status }
+  ),
 };
