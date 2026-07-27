@@ -15,3 +15,13 @@ export const REPORTS = {
   VERIFY: (id) => `/reports/${id}/verify`,
   RESOLVE: (id) => `/reports/${id}/resolve`,
 }
+
+export const ADMIN = {
+  DASHBOARD_STATS: "/admin/dashboard",
+}
+
+export const USERS = {
+  ALL: "/users",
+  BY_ID: (id) => `/users/${id}`,
+  DELETE: (id) => `/users/${id}`,
+}
