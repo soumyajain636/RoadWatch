@@ -1,8 +1,8 @@
-import axiosInstance from './axiosInstance.js'
-import { USERS } from '../utils/endpoints.js'
+import axiosInstance from "./axiosInstance";
+import { USERS } from "../utils/endpoints";
 
 export const userService = {
   getAll: (params) => axiosInstance.get(USERS.ALL, { params }),
-  getById: (id) => axiosInstance.get(USERS.BY_ID(id)),
+
   remove: (id) => axiosInstance.delete(USERS.DELETE(id)),
-}
+};

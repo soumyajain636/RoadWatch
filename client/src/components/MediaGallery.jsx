@@ -26,15 +26,18 @@ export default function MediaGallery({ images = [], video }) {
     <div>
       {images.length > 0 && (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {images.map((url, index) => (
+          {images.map((image, index) => (
             <button
-              key={url}
+              key={image.public_id || index}
               type="button"
               onClick={() => setActiveIndex(index)}
-              className="aspect-square overflow-hidden rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-hazard-500"
-              aria-label={`View photo ${index + 1} of ${images.length}`}
-            >
-              <img src={url} alt="" loading="lazy" className="h-full w-full object-cover transition-transform hover:scale-105" />
+              className="aspect-square overflow-hidden rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-hazard-500">
+              <img
+                src={image.url}
+                alt=""
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform hover:scale-105"
+              />
             </button>
           ))}
         </div>
@@ -63,7 +66,7 @@ export default function MediaGallery({ images = [], video }) {
             <X size={22} />
           </button>
           <img
-            src={images[activeIndex]}
+            src={images[activeIndex]?.url}
             alt={`Photo ${activeIndex + 1} of ${images.length}`}
             className="max-h-[85vh] max-w-full rounded-md object-contain"
             onClick={(e) => e.stopPropagation()}

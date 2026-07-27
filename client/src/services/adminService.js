@@ -1,30 +1,24 @@
-import axiosInstance from './axiosInstance.js'
-import { ADMIN } from '../utils/endpoints.js'
-import { userService } from './userService.js'
-import { reportService } from './reportService.js'
+import axiosInstance from "./axiosInstance";
+import { ADMIN, USERS } from "../utils/endpoints";
 
-/**
- * Single import surface for every admin-facing API call. Dashboard stats hit
- * their own endpoint directly; user and report moderation calls are
- * re-exported from userService/reportService rather than duplicated here,
- * so there is exactly one axios call per operation no matter which service
- * a component imports from — admin pages are written to only ever import
- * `adminService`.
- */
 export const adminService = {
-  // Dashboard
-  getStats: () => axiosInstance.get(ADMIN.DASHBOARD_STATS),
+  getStats: () => axiosInstance.get(ADMIN.DASHBOARD),
 
-  // User management (delegates to userService — same underlying calls)
-  getUsers: userService.getAll,
-  getUserById: userService.getById,
-  deleteUser: userService.remove,
+  getUsers: (params) => axiosInstance.get(USERS.ALL, { params }),
 
-  // Report moderation (delegates to reportService — same underlying calls)
-  getReports: reportService.getAll,
-  getReportById: reportService.getById,
-  verifyReport: reportService.verify,
-  markReportInProgress: reportService.markInProgress,
-  resolveReport: reportService.resolve,
-  deleteReport: reportService.remove,
-}
+  deleteUser: (id) => axiosInstance.delete(USERS.DELETE(id)),
+
+  getReports: () => axiosInstance.get(ADMIN.REPORTS),
+
+  getReportById: (id) =>
+    axiosInstance.get(ADMIN.REPORT_BY_ID(id)),
+
+  verifyReport: (id) =>
+    axiosInstance.put(ADMIN.VERIFY_REPORT(id)),
+
+  resolveReport: (id) =>
+    axiosInstance.put(ADMIN.RESOLVE_REPORT(id)),
+
+  deleteReport: (id) =>
+    axiosInstance.delete(ADMIN.DELETE_REPORT(id)),
+};

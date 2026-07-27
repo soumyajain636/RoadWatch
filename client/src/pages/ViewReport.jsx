@@ -54,8 +54,8 @@ export default function ViewReport() {
 
   const isOwner = Boolean(
     report &&
-      user &&
-      ownerId === user._id
+    user &&
+    ownerId === user._id
   )
 
   const canManage = isOwner || isAdmin
@@ -90,7 +90,7 @@ export default function ViewReport() {
   if (!report) {
     return null
   }
-
+  console.log(report.images);
   return (
     <PageTransition title={report.title}>
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
