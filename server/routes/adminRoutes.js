@@ -9,6 +9,7 @@ const {
   verifyReport,
   resolveReport,
   deleteReport,
+  updateReportStatus
 } = require("../controllers/adminController");
 
 const { protect, admin } = require("../middleware/authMiddleware");
