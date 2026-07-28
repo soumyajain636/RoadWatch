@@ -53,23 +53,12 @@ export default function Login() {
     setIsSubmitting(true)
 
     try {
-      console.log('Submitting...')
+      await login(form)
 
-      const user = await login(form)
-
-      console.log('Returned user:', user)
-
-      alert('LOGIN FINISHED')
-
-      const redirectTo =
-        location.state?.from?.pathname ||
-        (user?.role === 'admin'
-          ? '/admin/dashboard'
-          : '/dashboard')
+      const redirectTo = location.state?.from?.pathname || '/'
 
       navigate(redirectTo, { replace: true })
     } catch (error) {
-      console.log(error)
       handleApiError(error, 'Login failed.')
     } finally {
       setIsSubmitting(false)
